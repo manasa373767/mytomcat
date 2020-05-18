@@ -1,7 +1,8 @@
+---
 - hosts: all
   become: true
   vars:
-    tomcat_version: 8.5.23
+    tomcat_version: 8.5.5
     
     tomcat_permissions_production: True
     
@@ -9,14 +10,15 @@
       - username: "tomcat"
         password: "t3mpp@ssw0rd"
         roles: "tomcat,admin,manager,manager-gui"
-      - username: "exampleuser"
-        password: "us3rp@ssw0rd"
+      - username: "admin"
+        password: "admin"
         roles: "tomcat"        
   roles:
     - role: zaxos.tomcat-ansible-role
   tasks:
+  - name: copy artifacts to tomcat
     get_url:
+      url: https://s3-artifacts-manasa.s3.amazonaws.com/gameoflife-web/target/gameoflife.war
+      dest: /opt/tomcat/webapps/gameoflife.war
 
-        url: https://s3gol.s3.amazonaws.com/gameoflife-web/target/gameoflife.war
-        dest: /opt/tomcat/webapps/gameoflife  
 
