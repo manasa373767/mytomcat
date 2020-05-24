@@ -15,6 +15,11 @@
         roles: "tomcat"        
   roles:
     - role: zaxos.tomcat-ansible-role
+  tasks:
+  - name: copy artifacts to tomcat
+    copy:
+      src: open.war
+      dest: /opt/tomcat/webapps/open.war
  
 
 
